@@ -2,10 +2,11 @@ package mailer
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ses"
-	"os"
 )
 
 func CreateClient() (*ses.SES, error) {
@@ -30,15 +31,20 @@ func CreateClient() (*ses.SES, error) {
 type SendOptions struct {
 	From    string
 	ReplyTo string
-	To      string
+	To      []string
 	Subject string
 	Body    string
 }
 
 func Send(client *ses.SES, options SendOptions) error {
+	toAddresses := make([]*string, len(options.To))
+	for i, address := range options.To {
+		toAddresses[i] = aws.String(address)
+	}
+
 	emailInput := &ses.SendEmailInput{
 		Destination: &ses.Destination{
-			ToAddresses: []*string{aws.String(options.To)},
+			ToAddresses: toAddresses,
 		},
 		Message: &ses.Message{
 			Body: &ses.Body{

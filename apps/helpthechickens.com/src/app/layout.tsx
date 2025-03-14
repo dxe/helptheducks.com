@@ -3,8 +3,8 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 const description =
-  "Multiple investigations have exposed Reichardt Duck Farm for rampant disease and criminal animal cruelty.";
-const title = "Help the Ducks";
+  "Investigations since 2018 have exposed sick and injured animals languishing without care.";
+const title = "Help the Chickens";
 export const metadata: Metadata = {
   title,
   description,
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    images: "https://helptheducks.com/og-image.jpeg",
-    url: "https://helptheducks.com",
+    images: "https://helpthechickens.com/og-image.png",
+    url: "https://helpthechickens.com",
     description,
     siteName: title,
   },
@@ -35,7 +35,7 @@ export default function RootLayout({
       <head></head>
       <body>
         {children}
-        <GoogleAnalytics gaId="G-2WJVQ0EX4G" />
+        <GoogleAnalytics gaId="G-5ZVSGD02YN" />
       </body>
     </html>
   );

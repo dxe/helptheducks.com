@@ -1,4 +1,4 @@
-# helptheducks.com
+# helpthechickens.com
 
 One-time setup: `pnpm install`
 
@@ -8,4 +8,4 @@ Lint: `pnpm lint`
 
 Create prod build: `pnpm build`
 
-Build with Turbo: `turbo build --filter=helptheducks.com`
+Build with Turbo: `turbo build --filter=helpthechickens.com`
