@@ -5,7 +5,7 @@ import { Button } from "@dxe/petitions-components/button";
 import { EmailPetition } from "@dxe/email-petition/email-petition";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@dxe/petitions-components/dialog";
 import { PlayIcon } from "@/svg/play-icon";
-import { Section } from "./section";
+import { Section } from "@dxe/petitions-components/section";
 import Image from "next/image";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DEFAULT_MESSAGE } from "@/data/petition-message";
