@@ -16,7 +16,8 @@
         "./radio-group": "./dist/shadcn/components/ui/radio-group.jsx",
         "./select": "./dist/shadcn/components/ui/select.jsx",
         "./textarea": "./dist/shadcn/components/ui/textarea.jsx",
-        "./utils": "./dist/shadcn/utils.js"
+        "./utils": "./dist/shadcn/utils.js",
+        "./use-scroll-to-id": "./dist/hooks/useScrollToId.js"
     },
     "dependencies": {
         "@radix-ui/react-checkbox": "^1.1.4",

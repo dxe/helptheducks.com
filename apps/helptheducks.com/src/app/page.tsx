@@ -1,6 +1,6 @@
 "use client";
 
-import { useScrollToId } from "@/hooks/useScrollToId";
+import { useScrollToId } from "@dxe/petitions-components/use-scroll-to-id";
 import { Button } from "@dxe/petitions-components/button";
 import { EmailPetition } from "@dxe/email-petition/email-petition";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@dxe/petitions-components/dialog";
@@ -227,6 +227,9 @@ const Video2Section = () => {
           </button>
         </DialogTrigger>
         <DialogContent className="w-full flex justify-center bg-black">
+          <VisuallyHidden>
+            <DialogTitle>Watch video</DialogTitle>
+          </VisuallyHidden>
           <iframe
             src="https://player.vimeo.com/video/899042025?h=d2d319d36b&autoplay=1&title=0&byline=0&portrait=0&badge=0"
             allow="autoplay; fullscreen"
