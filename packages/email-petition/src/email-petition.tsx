@@ -1,10 +1,9 @@
 "use client";
 
 import {
-  DEFAULT_MESSAGE,
   PetitionForm,
   PetitionFormSchema,
-} from "@/data/petition";
+} from "./data/petition";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -21,7 +20,7 @@ import { Input } from "@dxe/petitions-components/input";
 import { Button } from "@dxe/petitions-components/button";
 import { Textarea } from "@dxe/petitions-components/textarea";
 import { Checkbox } from "@dxe/petitions-components/checkbox";
-import { SonomaCities } from "@/data/zipcodes";
+import { SonomaCities } from "./data/zipcodes";
 import { cn } from "@dxe/petitions-components/utils";
 import {
   Select,
@@ -44,7 +43,7 @@ console.log("campaign: " + CAMPAIGN_NAME);
 
 const CAPTCHA_SITE_KEY = "6LdiglcpAAAAAM9XE_TNnAiZ22NR9nSRxHMOFn8E";
 
-export const Petition = () => {
+export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => void}) => {
   const form = useForm<PetitionForm>({
     resolver: zodResolver(PetitionFormSchema),
     defaultValues: {
@@ -54,7 +53,7 @@ export const Petition = () => {
       outsideUS: false,
       zip: "",
       city: "",
-      message: DEFAULT_MESSAGE,
+      message: props.defaultMessage,
     },
   });
   const {
@@ -69,12 +68,12 @@ export const Petition = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onSubmit = useMemo(
+  const onReactHookFormSubmit = useMemo(
     () =>
       handleSubmit(async (data) => {
-        window.dataLayer?.push({
-          event: "form_submitted",
-        });
+        if (props.onSubmit != null) { 
+          props.onSubmit();
+        }
         setIsSubmitting(true);
         if (!recaptchaRef.current) {
           alert("Error loading captcha. Please refresh the page & try again.");
@@ -172,7 +171,7 @@ export const Petition = () => {
         return;
       }
       resetField("message", {
-        defaultValue: DEFAULT_MESSAGE.replace(
+        defaultValue: props.defaultMessage.replace(
           "[Your name]",
           name || "[Your name]",
         ).replace("[Your city if you live in Sonoma County]", city || ""),
@@ -194,7 +193,7 @@ export const Petition = () => {
   ) : (
     <Form {...form}>
       <form
-        onSubmit={onSubmit}
+        onSubmit={onReactHookFormSubmit}
         className="w-full flex flex-col md:flex-row gap-8 justify-center"
       >
         <div className="flex flex-col gap-4 basis-1/3">

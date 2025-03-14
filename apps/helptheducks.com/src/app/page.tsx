@@ -2,12 +2,13 @@
 
 import { useScrollToId } from "@/hooks/useScrollToId";
 import { Button } from "@dxe/petitions-components/button";
-import { Petition } from "./petition";
+import { EmailPetition } from "@dxe/email-petition/email-petition";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@dxe/petitions-components/dialog";
 import { PlayIcon } from "@/svg/play-icon";
 import { Section } from "./section";
 import Image from "next/image";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { DEFAULT_MESSAGE } from "@/data/petition-message";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,12 @@ export default function HomePage() {
       <Footer />
     </div>
   );
+}
+
+function onSubmit() {
+  window.dataLayer?.push({
+    event: "form_submitted",
+  });
 }
 
 const Hero = () => {
@@ -66,7 +73,7 @@ const PetitionSection = () => {
       <h2 className="font-semibold text-xl uppercase self-start text-center md:text-left w-full">
         Contact the District Attorney Now
       </h2>
-      <Petition />
+      <EmailPetition defaultMessage={DEFAULT_MESSAGE} onSubmit={onSubmit} />
     </Section>
   );
 };
