@@ -1,13 +1,14 @@
 "use client";
 
-import { useScrollToId } from "@/hooks/useScrollToId";
+import { useScrollToId } from "@dxe/petitions-components/use-scroll-to-id";
 import { Button } from "@dxe/petitions-components/button";
-import { Petition } from "./petition";
+import { EmailPetition } from "@dxe/email-petition/email-petition";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@dxe/petitions-components/dialog";
 import { PlayIcon } from "@/svg/play-icon";
-import { Section } from "./section";
+import { Section } from "@dxe/petitions-components/section";
 import Image from "next/image";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { DEFAULT_MESSAGE } from "@/data/petition-message";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,12 @@ export default function HomePage() {
       <Footer />
     </div>
   );
+}
+
+function onSubmit() {
+  window.dataLayer?.push({
+    event: "form_submitted",
+  });
 }
 
 const Hero = () => {
@@ -66,7 +73,7 @@ const PetitionSection = () => {
       <h2 className="font-semibold text-xl uppercase self-start text-center md:text-left w-full">
         Contact the District Attorney Now
       </h2>
-      <Petition />
+      <EmailPetition defaultMessage={DEFAULT_MESSAGE} onSubmit={onSubmit} />
     </Section>
   );
 };
@@ -220,6 +227,9 @@ const Video2Section = () => {
           </button>
         </DialogTrigger>
         <DialogContent className="w-full flex justify-center bg-black">
+          <VisuallyHidden>
+            <DialogTitle>Watch video</DialogTitle>
+          </VisuallyHidden>
           <iframe
             src="https://player.vimeo.com/video/899042025?h=d2d319d36b&autoplay=1&title=0&byline=0&portrait=0&badge=0"
             allow="autoplay; fullscreen"

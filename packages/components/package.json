@@ -1,7 +1,6 @@
 {
     "name": "@dxe/petitions-components",
     "type": "module",
-    "scripts-comment": "Note react-jsx or react-jsxdev can be passed to tsc --jsx flag",
     "scripts": {
         "dev": "tsc --watch && (concurrently \"tsc -w\" \"tsc-alias -w\")",
         "build": "tsc && tsc-alias -p tsconfig.json"
@@ -17,7 +16,9 @@
         "./radio-group": "./dist/shadcn/components/ui/radio-group.jsx",
         "./select": "./dist/shadcn/components/ui/select.jsx",
         "./textarea": "./dist/shadcn/components/ui/textarea.jsx",
-        "./utils": "./dist/shadcn/utils.js"
+        "./utils": "./dist/shadcn/utils.js",
+        "./use-scroll-to-id": "./dist/hooks/useScrollToId.js",
+        "./section": "./dist/components/section.jsx"
     },
     "dependencies": {
         "@radix-ui/react-checkbox": "^1.1.4",

@@ -3,6 +3,7 @@
 /* https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources */
 @source "../../node_modules/@dxe/petitions-components/";
 
+/* Used by Shadcn components in @dxe/petitions-components */
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
