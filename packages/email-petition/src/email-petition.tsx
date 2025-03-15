@@ -280,7 +280,7 @@ export const EmailPetition = (props: { defaultMessage: string, onSubmit?: () => 
             name="city"
             disabled={outsideUS || isSubmitting}
             render={({ field }) => (
-              <FormItem className={cn({ hidden: !cities.length })}>
+              <FormItem className={cn({ "hidden": !cities.length })}>
                 <FormLabel>City</FormLabel>
                 <Select
                   onValueChange={(val: string | undefined) => {
@@ -314,7 +314,7 @@ export const EmailPetition = (props: { defaultMessage: string, onSubmit?: () => 
             render={({ field }) => (
               <FormItem
                 className={cn("flex gap-2 items-center", {
-                  hidden: cities.length,
+                  "hidden": cities.length,
                 })}
               >
                 <FormControl>
