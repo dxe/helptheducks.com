@@ -21,4 +21,4 @@ I hope that your office will take appropriate action to stop the disease, cruelt
 Sincerely,
 
 [Your name]
-[Your city if you live in Sonoma County]`;
+[Your city]`;

@@ -18,13 +18,23 @@ func getEnvWithFallback(key string, fallback string) string {
 	return v
 }
 
+var helpTheChickensRecipients = []string{
+	"kmcdonnell@cityofpetaluma.org",
+	"knau@cityofpetaluma.org",
+	"jshribbs@cityofpetaluma.org",
+	"fquint@cityofpetaluma.org",
+	"Jcaderthompson@cityofpetaluma.org",
+	"adecarli@cityofpetaluma.org",
+	"bbarnacle@cityofpetaluma.org"}
+
 var EmailSettings = map[string]struct {
 	FromDomain string
 	Subject    string
-	To         string
+	To         []string
 }{
-	"duck":   {FromDomain: "helptheducks.com", Subject: "Prosecute Reichardt Duck Farm for Animal Abuse", To: "carla.rodriguez@sonoma-county.org"},
-	"sonoma": {FromDomain: "righttorescue.com", Subject: "Prosecute animal cruelty, not animal rescuers", To: "carla.rodriguez@sonoma-county.org"},
-	"ridglan": {FromDomain: "righttorescue.com", Subject: "Prosecute animal abuse at Ridglan Farms", To: "ismael.ozanne@da.wi.gov"},
-	"test":   {FromDomain: "righttorescue.com", Subject: "Test", To: "tech@directactioneverywhere.com"},
+	"duck":    {FromDomain: "helptheducks.com", Subject: "Prosecute Reichardt Duck Farm for Animal Abuse", To: []string{"carla.rodriguez@sonoma-county.org"}},
+	"chicken": {FromDomain: "helpthechickens.com", Subject: "Shut Down Perdue's Petaluma Poultry Slaughterhouse to End Animal Abuse and Protect Public Health", To: helpTheChickensRecipients},
+	"sonoma":  {FromDomain: "righttorescue.com", Subject: "Prosecute animal cruelty, not animal rescuers", To: []string{"carla.rodriguez@sonoma-county.org"}},
+	"ridglan": {FromDomain: "righttorescue.com", Subject: "Prosecute animal abuse at Ridglan Farms", To: []string{"ismael.ozanne@da.wi.gov"}},
+	"test":    {FromDomain: "righttorescue.com", Subject: "Test", To: []string{"tech@directactioneverywhere.com"}},
 }

@@ -43,7 +43,7 @@ console.log("campaign: " + CAMPAIGN_NAME);
 
 const CAPTCHA_SITE_KEY = "6LdiglcpAAAAAM9XE_TNnAiZ22NR9nSRxHMOFn8E";
 
-export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => void}) => {
+export const EmailPetition = (props: { defaultMessage: string, onSubmit?: () => void }) => {
   const form = useForm<PetitionForm>({
     resolver: zodResolver(PetitionFormSchema),
     defaultValues: {
@@ -71,7 +71,7 @@ export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => v
   const onReactHookFormSubmit = useMemo(
     () =>
       handleSubmit(async (data) => {
-        if (props.onSubmit != null) { 
+        if (props.onSubmit != null) {
           props.onSubmit();
         }
         setIsSubmitting(true);
@@ -171,10 +171,9 @@ export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => v
         return;
       }
       resetField("message", {
-        defaultValue: props.defaultMessage.replace(
-          "[Your name]",
-          name || "[Your name]",
-        ).replace("[Your city if you live in Sonoma County]", city || ""),
+        defaultValue: props.defaultMessage
+          .replace("[Your name]", name || "[Your name]")
+          .replace("[Your city]", city || ""),
       });
     },
     [dirtyFields.message, resetField],
@@ -281,7 +280,7 @@ export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => v
             name="city"
             disabled={outsideUS || isSubmitting}
             render={({ field }) => (
-              <FormItem className={cn({ hidden: !cities.length })}>
+              <FormItem className={cn({ "hidden": !cities.length })}>
                 <FormLabel>City</FormLabel>
                 <Select
                   onValueChange={(val: string | undefined) => {
@@ -315,7 +314,7 @@ export const EmailPetition = (props: {defaultMessage: string, onSubmit?: () => v
             render={({ field }) => (
               <FormItem
                 className={cn("flex gap-2 items-center", {
-                  hidden: cities.length,
+                  "hidden": cities.length,
                 })}
               >
                 <FormControl>

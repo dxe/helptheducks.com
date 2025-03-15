@@ -2,6 +2,7 @@
 
 /* https://tailwindcss.com/docs/detecting-classes-in-source-files#explicitly-registering-sources */
 @source "../../node_modules/@dxe/petitions-components/";
+@source "../../node_modules/@dxe/email-petition/";
 
 /* Used by Shadcn components in @dxe/petitions-components */
 @plugin 'tailwindcss-animate';
