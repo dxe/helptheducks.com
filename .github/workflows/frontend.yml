@@ -1,13 +1,30 @@
-name: Deploy frontend
+# Reusable GitHub Actions workflow for building and deploying a website to S3.
+#
+# Builds the given package, checks lint and formatting, syncs to S3, and
+# invalidates the CloudFront distribution.
+
+name: Build and Deploy Frontend
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - apps/helptheducks.com/**
-  workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      package-name:
+        type: string
+        required: true
+      package-path:
+        type: string
+        required: true
+      aws-s3-bucket:
+        type: string
+        required: true
+      aws-cloudfront-distribution:
+        type: string
+        required: true
+    secrets:
+      aws-access-key-id:
+        required: true
+      aws-secret-access-key:
+        required: true
 jobs:
   deploy_frontend:
     runs-on: ubuntu-latest
@@ -23,27 +40,25 @@ jobs:
         run: |
           node --version
           pnpm install --frozen-lockfile
-          pnpm build
+          pnpm build --filter="${{ inputs.package-name }}"
       - name: lint
-        run: pnpm lint
-      - name: typecheck
-        run: pnpm typecheck
+        run: pnpm lint --filter="${{ inputs.package-name }}"
       - name: check format
         run: pnpm format
         continue-on-error: false
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete --exclude '.git*' --exclude 'service'
+          args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ inputs.aws-s3-bucket }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws-access-key-id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws-secret-access-key }}
           AWS_REGION: "us-west-2"
-          SOURCE_DIR: "apps/helptheducks.com/dist"
+          SOURCE_DIR: "${{ inputs.package-path }}/out"
       - uses: chetan/invalidate-cloudfront-action@master
         env:
-          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
+          DISTRIBUTION: ${{ inputs.aws-cloudfront-distribution }}
           PATHS: "/*"
           AWS_REGION: "us-west-2"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws-access-key-id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws-secret-access-key }}

@@ -1,0 +1,22 @@
+name: Deploy helpthechickens.com
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/helpthechickens.com/**
+      - packages/**
+  workflow_dispatch:
+
+jobs:
+  deploy_frontend:
+    uses: ./.github/workflows/frontend.yml
+    with:
+      package-name: helpthechickens.com
+      package-path: apps/helpthechickens.com
+      aws-s3-bucket: ${{ vars.HELP_THE_CHICKENS_S3_BUCKET }}
+      aws-cloudfront-distribution: ${{ vars.HELP_THE_CHICKENS_CLOUDFRONT_DISTRIBUTION }}
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
